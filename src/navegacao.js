@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Logosa from './componentes/imgs/Logo.png'
 // import Banner from './componentes/imgs/studio.jpg'
 
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 

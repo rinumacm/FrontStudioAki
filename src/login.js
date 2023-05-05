@@ -51,7 +51,7 @@ export function Login() {
             </div>
             <div className="input-group mb-1">
               {/* <input type="password" className="form-control form-control-lg bg-light fs-6" placeholder="Senha" toggleMask /> */}
-              <Password  value={value} onChange={(e) => setValue(e.target.value)}  placeholder="Senha"  toggleMask style={{width:"100%"}} />
+              <Password  value={value} onChange={(e) => setValue(e.target.value)} feedback={false}  placeholder="Senha"  toggleMask inputClassName='form-control form-control-lg bg-light fs-6 w-100 ' className='w-100' />
             </div>
             <div className="input-group mb-5 d-flex justify-content-between">
               <div className="form-check">

@@ -9,6 +9,7 @@ import { Password } from 'primereact/password';
 import { useState } from 'react';
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
+import  "/node_modules/primeflex/primeflex.css";
 
 
 
@@ -65,14 +66,14 @@ export function Signup() {
                                 <div className="input-group mb-3">
                                     {/* <input type="password" className="form-control form-control-lg bg-light fs-6" placeholder="Senha" /> */}
                                     <Password value={password1} onChange={(e) => setPassword1(e.target.value)} header={header} footer={footer} placeholder="Crie uma senha"
-                                     prompt="Digite uma senha"  toggleMask inputClassName="form-control form-control-lg bg-light fs-6" inputStyle={{width:'210px'}}   />
+                                     prompt="Digite uma senha"  toggleMask inputClassName='form-control form-control-lg bg-light fs-6 w-100 ' className='w-100'/>
 
                                     {/* <Password  placeholder="Repita a senha" toggleMask /> */}
 
 
                                 </div>
                                 <div className="input-group mb-3">
-                                <Password value={password2} onChange={(e) => setPassword2(e.target.value)} feedback={false} placeholder='Repita a Senha' inputClassName="form-control form-control-lg bg-light fs-6" inputStyle={{width:'210px'}} />
+                                <Password weakLabel='Fraco' value={password2} onChange={(e) => setPassword2(e.target.value)} feedback={false} placeholder='Repita a Senha' inputClassName='form-control form-control-lg bg-light fs-6 w-100 ' className='w-100' />
                                 </div>
                     
                                 <div className="input-group mb-3">
