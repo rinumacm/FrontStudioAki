@@ -8,13 +8,27 @@ import stereo from './componentes/imgs/stereo.png'
 import { Password } from 'primereact/password';
 import { useState } from 'react';
 import "primereact/resources/themes/lara-light-indigo/theme.css"; 
-import "primereact/resources/primereact.min.css";  
+import "primereact/resources/primereact.min.css";
+import axios from 'axios'
         
-
-
 export function Login() {
-  const [value, setValue] = useState('');
+  const onSubmitFunction = () => {  
+    axios.post("http://localhost:3000/login",
+   { email: email, password: password  }).then(res => "http://localhost:3000/signup").catch(error => console.error )
+}
+
+
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+    
+
+
   return (
+    
+
+
+    
     <>
       <Navegacao />
       <div style={{ background: "#0E243B" }}>
@@ -46,12 +60,15 @@ export function Login() {
               <h2>Seja Bem-vindo!!</h2>
               <p>e muito bom ter você aqui.</p>
             </div>
+            <form onSubmit={onSubmitFunction} > 
             <div className="input-group mb-3">
-              <input type="text" className="form-control form-control-lg bg-light fs-6" placeholder="Endereço de Email" />
+              <input type="text" className="form-control form-control-lg bg-light fs-6" placeholder="Endereço de Email" id='username'
+                autoComplete='off' onChange={(e) => setEmail(e.target.value)} value={email} required />
             </div>
             <div className="input-group mb-1">
               {/* <input type="password" className="form-control form-control-lg bg-light fs-6" placeholder="Senha" toggleMask /> */}
-              <Password  value={value} onChange={(e) => setValue(e.target.value)} feedback={false}  placeholder="Senha"  toggleMask inputClassName='form-control form-control-lg bg-light fs-6 w-100 ' className='w-100' />
+              <Password type='password' value={password} id='password' autoComplete='off' required 
+               onChange={(e) => setPassword(e.target.value)} feedback={false}  placeholder="Senha"  toggleMask inputClassName='form-control form-control-lg bg-light fs-6 w-100 ' className='w-100' />
             </div>
             <div className="input-group mb-5 d-flex justify-content-between">
               <div className="form-check">
@@ -69,6 +86,7 @@ export function Login() {
             <div className="input-group mb-3">
               <button className="btn btn-lg btn-primary w-100 fs-6" style={{background:'#546CCF'}}>Entrar</button>
             </div>
+            </form>
             <div className="input-group mb-3">
               <button className="btn btn-lg btn-light w-100 fs-6">
                 <img src={Logogoogle} style={{ width: "20px" }} className="me-2" alt="google" />
@@ -101,4 +119,4 @@ export function Login() {
 //   .form_container{
 //     width: 
 //   }
-// }
+

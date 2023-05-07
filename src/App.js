@@ -4,6 +4,9 @@ import {Navegacao} from "./navegacao"
 import {Login} from './login'
 import { Signup } from "./signup";
 import {Home} from './home'
+import axios from 'axios'
+
+
 
 
 function App() {
@@ -16,6 +19,8 @@ function App() {
     
 
   </Routes>
+
+
 }
 
 export default App;

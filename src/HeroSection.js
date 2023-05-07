@@ -1,12 +1,13 @@
 import React from "react";
 import { Button } from "./botoes";
 import './HeroSection.css'
+import Studioimg from "./componentes/imgs/studio.jpg"
 
 
 export function HeroSection(){
     return(
         <div className="hero-container">
-            <img></img>
+            <img className="studio" src={Studioimg} />
             <h1>Ache o estudio perfeito</h1>
             <p>Esta esperando o que?</p>
             <div className="hero-btns"></div>
