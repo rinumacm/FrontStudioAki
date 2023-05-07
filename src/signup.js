@@ -6,12 +6,12 @@ import './style.css';
 import Logogoogle from './componentes/imgs/Google.png';
 import stereo from './componentes/imgs/stereo.png'
 import { Password } from 'primereact/password';
-import { useState } from 'react';
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import  "/node_modules/primeflex/primeflex.css";
 import axios from 'axios'
 import {NavLink, useHistory} from 'react-router-dom'
+import {useState} from 'react'
 
 
 
@@ -32,46 +32,58 @@ export function Signup() {
         </div>
       );
     
-    const history = useHistory
+
+      const onSubmitFunction = () => {  
+        axios.post("http://localhost:3000/login",
+       {first_name: firstname, last_name: lastname, email: email, password:password   }).then(res => "http://localhost:3000/signup").catch(error => console.error )
+    }
+
+    const [ firstname, setFirstName ] = useState  ('')
+    const [ lastname, setLastName] =  useState ("")
+    const [email, setEmail] = useState ("")
+    const [password, setPassword] = useState("")
 
 
-    const [user, setUser] = useState({
-       first_name:"", last_name:'', email:"", password:""
-    })
+    // const history = useHistory
+
+
+    // const [user, setUser] = useState({
+    //    first_name:"", last_name:'', email:"", password:""
+    // })
     
-    const handleInputs= (e) => {
-        let namee = e.target.name
-        let value = e.target.value
+    // const handleInputs= (e) => {
+    //     let namee = e.target.name
+    //     let value = e.target.value
 
-        setUser({...user,[namee]:value})
-    }
+    //     setUser({...user,[namee]:value})
+    // }
 
-    const postData = async(e) => {
-        e.preventDefault()
-        const{first_name,last_name,email,password} = user
+    // const postData = async(e) => {
+    //     e.preventDefault()
+    //     const{first_name,last_name,email,password} = user
 
-        const res = await fetch('/signup', {
-            method: 'post',
-            headers: {
-                'Content_Type': "application/json"
-            },
-            body:JSON.stringify({
-                first_name,last_name,email,password
-            })
-        });
+    //     const res = await fetch('/signup', {
+    //         method: 'post',
+    //         headers: {
+    //             'Content_Type': "application/json"
+    //         },
+    //         body:JSON.stringify({
+    //             first_name,last_name,email,password
+    //         })
+    //     });
 
-        const data = await res.json();
+    //     const data = await res.json();
 
-        if(res.status === 400){
-            localStorage.setItem('token',data.token)
-            window.alert('Usuario não encontrado')
-            history.push('/')
-        }   
-        else{
-            window.alert('Usuario Cadastrado') 
-        }
+    //     if(res.status === 400){
+    //         localStorage.setItem('token',data.token)
+    //         window.alert('Usuario não encontrado')
+    //         history.push('/')
+    //     }   
+    //     else{
+    //         window.alert('Usuario Cadastrado') 
+    //     }
 
-    }
+    // }
     
     // const [password1, setPassword1] = useState("");
     // const [password2, setPassword2] = useState("");
@@ -79,7 +91,7 @@ export function Signup() {
     return (
         <>
             <Navegacao />
-            <form  >
+            <form onSubmit={onSubmitFunction}  >
             <div style={{ background: "#0E243B" }}>
                 <div className="container d-flex justify-content-center align-items-center min-vh-100">
                     <div className="row border rounded-5 p-3 bg-white shadow box-area">
@@ -110,18 +122,18 @@ export function Signup() {
                                     <p>e muito bom ter você aqui.</p>
                                 </div>
                                 <div className="input-group mb-3">
-                                    <input type="text" className="form-control form-control-lg bg-light fs-6" placeholder="Nome" value={user.first_name} onChange={handleInputs} />
+                                    <input type="text" className="form-control form-control-lg bg-light fs-6" placeholder="Nome" value={firstname}  onChange={(e) => setFirstName(e.target.value)}  />
                                 </div>
                                 <div className="input-group mb-3">
-                                    <input type="text" className="form-control form-control-lg bg-light fs-6" placeholder="Sobrenome" value={user.last_name} onChange={handleInputs} />
+                                    <input type="text" className="form-control form-control-lg bg-light fs-6" placeholder="Sobrenome" value={lastname}  onChange={(e) => setLastName(e.target.value)}  />
                                 </div>
                                 </div>
                                 <div className="input-group mb-3">
-                                    <input type="text" className="form-control form-control-lg bg-light fs-6" placeholder="Endereço de Email" value={user.email} onChange={handleInputs}/>
+                                    <input type="text" className="form-control form-control-lg bg-light fs-6" placeholder="Endereço de Email" value={email}  onChange={(e) => setEmail(e.target.value)} />
                                 </div>
                                 <div className="input-group mb-3">
                                     {/* <input type="password" className="form-control form-control-lg bg-light fs-6" placeholder="Senha" /> */}
-                                    <Password value={user.password} onChange={handleInputs} header={header} footer={footer} placeholder="Crie uma senha"
+                                    <Password value={password}  header={header} footer={footer} placeholder="Crie uma senha"  onChange={(e) => setPassword(e.target.value)}
                                      prompt="Digite uma senha"  toggleMask inputClassName='form-control form-control-lg bg-light fs-6 w-100 ' className='w-100'/>
 
                                     {/* <Password  placeholder="Repita a senha" toggleMask /> */}
@@ -129,7 +141,7 @@ export function Signup() {
 
                     
                                 <div className="input-group mb-3">
-                                    <button className="btn btn-lg btn-primary w-100 fs-6" style={{ background: '#546CCF' }} onClick={postData}>Criar</button>
+                                    <button type='submit' className="btn btn-lg btn-primary w-100 fs-6" style={{ background: '#546CCF' }} >Criar</button>
                                 </div>
                                 <div className="input-group mb-3">
                                     <button className="btn btn-lg btn-light w-100 fs-6">
