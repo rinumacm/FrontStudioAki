@@ -6,32 +6,45 @@ import './style.css';
 import Logogoogle from './componentes/imgs/Google.png';
 import stereo from './componentes/imgs/stereo.png'
 import { Password } from 'primereact/password';
-import { useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import "primereact/resources/themes/lara-light-indigo/theme.css"; 
 import "primereact/resources/primereact.min.css";
 import axios from 'axios'
         
 export function Login() {
-  const onSubmitFunction = () => {  
-    axios.post("http://localhost:3000/login",
-   { email: email, password: password  }).then(res => "http://localhost:3000/signup").catch(error => console.error )
-}
+    const userRef = useRef();
+    const errRef = useRef();
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [errMsg, setErrMsg] = useState('');
+    const [success, setSuccess] = useState(false);
 
+    useEffect(() => {
+      userRef.current.focus();
+      console.log(email, password );
+      setEmail('');
+      setPassword('');
+      setSuccess(true)
+    },[])
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-    
+    useEffect(() => {
+      setErrMsg('');
+    },[email, password])
 
+    const handleSubmit = async (e) => {
+      e.preventDeffault();
+
+    }
 
   return (
-    
-
-
-    
+  
     <>
+      
+        <section>
       <Navegacao />
       <div style={{ background: "#0E243B" }}>
+        <p ref={errRef} className={errMsg ? 'errmsg': 'offscreen'} aria-live='assertative'>{errMsg}</p>
       <div className="container d-flex justify-content-center align-items-center min-vh-100">
       <div className="row border rounded-5 p-3 bg-white shadow box-area">
         <div
@@ -60,10 +73,10 @@ export function Login() {
               <h2>Seja Bem-vindo!!</h2>
               <p>e muito bom ter você aqui.</p>
             </div>
-            <form onSubmit={onSubmitFunction} > 
+            <form onSubmit={handleSubmit} > 
             <div className="input-group mb-3">
-              <input type="text" className="form-control form-control-lg bg-light fs-6" placeholder="Endereço de Email" id='username'
-                autoComplete='off' onChange={(e) => setEmail(e.target.value)} value={email} required />
+              <input htmlFor='username' type="text" className="form-control form-control-lg bg-light fs-6" placeholder="Endereço de Email" id='username'
+                autoComplete='off' onChange={(e) => setEmail(e.target.value)} value={email} required ref={userRef}/>
             </div>
             <div className="input-group mb-1">
               {/* <input type="password" className="form-control form-control-lg bg-light fs-6" placeholder="Senha" toggleMask /> */}
@@ -103,6 +116,7 @@ export function Login() {
       </div>
     </div>
     </div>
+    </section>
     </>
   );
 }
